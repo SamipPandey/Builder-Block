@@ -211,7 +211,8 @@ body.dark .rbtn.on{background:rgba(0,180,255,.16);border-color:rgba(0,200,255,.4
 
 /* ── BLUEPRINT PANEL ── */
 #bp-panel{position:fixed;top:76px;left:16px;z-index:100;
-  padding:14px 16px;min-width:200px;display:flex;flex-direction:column;gap:8px;
+  padding:14px 16px;min-width:200px;max-height:calc(100vh - 96px);
+  display:flex;flex-direction:column;gap:8px;overflow-y:auto;
   opacity:0;animation:slideLeft .5s .2s cubic-bezier(.34,1.4,.64,1) forwards}
 .bp-title{font-size:13px;font-weight:600;color:var(--tx);letter-spacing:-.01em}
 .bp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -265,19 +266,20 @@ body.dark #spoken.active{color:var(--accent);background:rgba(0,180,255,.08)}
 @keyframes wavePulse{to{height:18px}}
 
 /* ── STATS (compact) ── */
-#stats{position:fixed;bottom:80px;left:16px;z-index:100;
+#stats{position:fixed;bottom:80px;left:50%;z-index:100;
+  transform:translateX(-50%);
   padding:10px 14px;display:flex;gap:16px;align-items:center;
-  opacity:0;animation:slideLeft .5s .28s cubic-bezier(.34,1.4,.64,1) forwards}
+  opacity:0;animation:slideUp .5s .28s cubic-bezier(.34,1.4,.64,1) forwards}
 .st{text-align:center}
 .stv{font-size:18px;font-weight:600;color:var(--tx);letter-spacing:-.02em}
 .stk{font-size:9px;font-weight:500;letter-spacing:.08em;color:var(--tx3);text-transform:uppercase}
 body.dark .stv{color:var(--accent);text-shadow:0 0 12px var(--accent)}
 
 /* ── WEBCAM ── */
-#camp{position:fixed;bottom:80px;right:16px;z-index:100;
-  width:192px;overflow:hidden;padding:0;
-  opacity:0;animation:slideRight .5s .25s cubic-bezier(.34,1.4,.64,1) forwards}
-#cami{position:relative;background:#000;overflow:hidden;border-radius:20px 20px 0 0}
+#camp{position:fixed;bottom:16px;left:16px;z-index:100;
+  width:148px;overflow:hidden;padding:0;
+  opacity:0;animation:slideLeft .5s .25s cubic-bezier(.34,1.4,.64,1) forwards}
+#cami{position:relative;background:#000;overflow:hidden;border-radius:14px 14px 0 0}
 #wv{width:100%;display:block;transform:scaleX(-1);opacity:.90}
 #hc{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1)}
 .camfoot{display:flex;align-items:center;justify-content:space-between;
@@ -352,6 +354,170 @@ body.dark .ai-fill{background:linear-gradient(90deg,#00c8ff,#00ffa0)}
 .l-track{width:160px;height:1.5px;background:rgba(0,0,0,.10);border-radius:2px;overflow:hidden;margin-top:4px}
 .l-fill{height:100%;width:0%;border-radius:2px;transition:width .2s;
   background:linear-gradient(90deg,#4f6ef7,#0aa8d4)}
+
+/* ══════════════════════════════
+   TABLET — 768px to 1024px
+   ══════════════════════════════ */
+@media (max-width:1024px) and (min-width:769px){
+  #topbar{padding:8px 14px;gap:7px}
+  .app-name{font-size:15px}
+  .hbtn{padding:5px 12px;font-size:11px}
+  .tag{font-size:11px;padding:3px 9px}
+  #lsb{padding:12px 9px;gap:7px}
+  .cdot{width:28px;height:28px}
+  #bp-panel{min-width:178px;padding:10px 12px;max-height:calc(100vh - 100px)}
+  .bpbtn{padding:7px 5px;font-size:10px}
+  .bpbtn .bi{font-size:18px}
+  #rsb{padding:9px 8px;gap:5px}
+  .rbtn{width:44px;height:44px;border-radius:12px;font-size:16px}
+  #mic-panel{min-width:170px;padding:10px 13px}
+  #stats{padding:8px 11px;gap:12px}
+  .stv{font-size:16px}
+  #camp{width:160px}
+  #gbar{padding:7px 11px;gap:4px}
+  .gc{padding:5px 10px;font-size:11px}
+  .gc .gi{font-size:13px}
+}
+
+/* ══════════════════════════════
+   MOBILE — up to 768px
+   ══════════════════════════════ */
+@media (max-width:768px){
+  html,body{overflow:hidden}
+
+  /* TOP BAR: full-width at top */
+  #topbar{
+    top:8px;left:8px;right:8px;width:auto;
+    transform:none;padding:7px 10px;gap:5px;
+    flex-wrap:nowrap;overflow-x:auto;
+    animation:none;opacity:1;
+  }
+  .app-name{font-size:13px;white-space:nowrap}
+  .hbtn{padding:4px 8px;font-size:10px;white-space:nowrap}
+  .tag{font-size:9px;padding:2px 6px;white-space:nowrap}
+  .vsep{display:none}
+
+  /* Dark mode toggle — top right */
+  #mode-toggle{top:56px;right:8px;width:36px;height:36px;font-size:15px;animation:none;opacity:1}
+
+  /* LEFT palette — vertical strip, left side, centered */
+  #lsb{
+    left:8px;top:56px;bottom:170px;
+    transform:none;
+    flex-direction:column;
+    padding:8px 6px;gap:5px;
+    overflow-y:auto;
+    animation:none;opacity:1;
+    max-height:calc(100vh - 230px);
+  }
+  .cdot{width:26px;height:26px;flex-shrink:0}
+  #lsb .plbl{display:none}
+
+  /* BLUEPRINT PANEL — horizontal scrollable shelf below topbar, full width */
+  #bp-panel{
+    top:56px;
+    left:50px;right:56px;
+    min-width:0;max-height:none;
+    padding:6px 8px;gap:5px;
+    flex-direction:column;
+    animation:none;opacity:1;
+    overflow:visible;
+  }
+  .bp-title{font-size:10px;margin-bottom:2px}
+  .bp-grid{
+    display:flex;flex-direction:row;
+    gap:4px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:2px;
+  }
+  .bpbtn{
+    min-width:52px;flex-shrink:0;
+    padding:5px 4px;font-size:9px;border-radius:8px;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .bpbtn .bi{font-size:16px;margin-bottom:1px}
+
+  /* RIGHT PANEL — bottom right, compact column */
+  #rsb{
+    right:8px;bottom:170px;top:auto;
+    transform:none;
+    flex-direction:column;
+    padding:5px 4px;gap:3px;
+    animation:none;opacity:1;
+  }
+  .rbtn{width:36px;height:36px;border-radius:9px;font-size:13px}
+  .rbtn .rl{font-size:6px}
+  .rsep{width:100%;height:1px;margin:1px 0}
+
+  /* MIC PANEL — hidden on mobile (too cramped), voice btn in topbar is enough */
+  #mic-panel{
+    display:none;
+  }
+
+  /* STATS — bottom center above gesture bar */
+  #stats{
+    bottom:62px;left:50%;
+    transform:translateX(-50%);
+    padding:5px 10px;gap:8px;
+    animation:none;opacity:1;
+    white-space:nowrap;
+  }
+  .stv{font-size:13px}
+  .stk{font-size:7px}
+
+  /* WEBCAM — very bottom-left corner, tiny, non-intrusive */
+  #camp{
+    bottom:62px;left:8px;
+    width:100px;
+    animation:none;opacity:1;
+  }
+  #cami{border-radius:10px 10px 0 0}
+  .camfoot{padding:3px 6px;font-size:8px}
+
+  /* GESTURE BAR — full width at very bottom */
+  #gbar{
+    bottom:8px;left:8px;right:8px;width:auto;
+    transform:none;padding:5px 8px;gap:3px;
+    animation:none;opacity:1;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    justify-content:flex-start;
+  }
+  .gc{padding:4px 7px;font-size:10px;flex-shrink:0}
+  .gc .gi{font-size:11px}
+
+  /* TOAST */
+  #toast{bottom:52px;font-size:11px;padding:6px 14px}
+
+  /* CURSOR hidden on touch */
+  #cur,#cur2{display:none}
+  html,body{cursor:auto}
+
+  /* HUD corners smaller */
+  #hud-frame::before,#hud-frame::after,
+  #hud-frame .hf-bl,#hud-frame .hf-br{width:28px;height:28px}
+  #hud-frame::before{top:6px;left:6px}
+  #hud-frame::after{top:6px;right:6px}
+  #hud-frame .hf-bl{bottom:6px;left:6px}
+  #hud-frame .hf-br{bottom:6px;right:6px}
+
+  /* LOADER */
+  .l-name{font-size:32px}
+  .l-sub{font-size:9px}
+
+  /* AI overlay */
+  #ai-card{padding:18px 22px}
+  .ai-spin{font-size:26px}
+  .ai-ttl{font-size:14px}
+}
+
+/* Extra small phones */
+@media (max-width:400px){
+  #camp{width:80px}
+  .rbtn{width:32px;height:32px;font-size:12px}
+  .cdot{width:22px;height:22px}
+  .gc{padding:3px 6px;font-size:9px}
+  .bpbtn{min-width:46px}
+}
 </style>
 </head>
 <body>
@@ -468,8 +634,8 @@ body.dark .ai-fill{background:linear-gradient(90deg,#00c8ff,#00ffa0)}
   <div class="gc" id="gc-pinch"><span class="gi">🤏</span>Place</div>
   <div class="gc" id="gc-fist"><span class="gi">✊</span>Erase</div>
   <div class="gc" id="gc-peace"><span class="gi">✌️</span>Color</div>
-  <div class="gc" id="gc-open"><span class="gi">🖐️</span>Orbit</div>
-  <div class="gc" id="gc-zoom"><span class="gi">↔️</span>Zoom</div>
+  <div class="gc" id="gc-open"><span class="gi">🖐️</span>Show Hand → Place</div>
+  <div class="gc" id="gc-zoom"><span class="gi">🤌</span>Pinch → Zoom</div>
 </div>
 
 <div id="toast"></div>
@@ -575,8 +741,8 @@ function makeMat(c,mat){
 function initThree(){
   const cv=document.getElementById('tc');
   scene=new THREE.Scene();
-  scene.fog=new THREE.Fog(0xe0eaf5,50,110);
-  camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,200);
+  scene.fog=new THREE.Fog(0xe0eaf5,200,1200);
+  camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,2000);
   syncCam();
   renderer=new THREE.WebGLRenderer({canvas:cv,antialias:false,alpha:true,powerPreference:'high-performance'});
   renderer.setSize(innerWidth,innerHeight);
@@ -591,18 +757,18 @@ function initThree(){
   const sun=new THREE.DirectionalLight(0xfff6e8,1.7);
   sun.position.set(16,26,12);sun.castShadow=true;
   sun.shadow.mapSize.set(1024,1024);// 1024 not 2048 — big FPS win
-  sun.shadow.camera.left=sun.shadow.camera.bottom=-25;
-  sun.shadow.camera.right=sun.shadow.camera.top=25;
-  sun.shadow.camera.far=80;
+  sun.shadow.camera.left=sun.shadow.camera.bottom=-200;
+  sun.shadow.camera.right=sun.shadow.camera.top=200;
+  sun.shadow.camera.far=800;
   scene.add(sun);
-  const f1=new THREE.PointLight(0x93c5fd,.55,80);f1.position.set(-18,12,-10);scene.add(f1);
+  const f1=new THREE.PointLight(0x93c5fd,.55,200);f1.position.set(-18,12,-10);scene.add(f1);
   scene.add(new THREE.HemisphereLight(0xdbeafe,0xfce7f3,.65));
 
-  const grid=new THREE.GridHelper(40,40,0xb4c2d4,0xc8d2e2);
+  const grid=new THREE.GridHelper(1000,100,0xb4c2d4,0xc8d2e2);
   grid.position.y=-.005;scene.add(grid);
 
   groundM=new THREE.Mesh(
-    new THREE.PlaneGeometry(40,40),
+    new THREE.PlaneGeometry(1000,1000),
     new THREE.MeshBasicMaterial({visible:false,side:THREE.DoubleSide})
   );
   groundM.rotation.x=-Math.PI/2;groundM.name='ground';scene.add(groundM);
@@ -615,7 +781,7 @@ function initThree(){
   ghostM.visible=false;scene.add(ghostM);
 
   rcaster=new THREE.Raycaster();
-  rcaster.far=80;// limit ray distance for performance
+  rcaster.far=2000;// large world ray distance
 
   addEventListener('resize',()=>{
     camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
@@ -643,7 +809,7 @@ function loop(){
     camTheta+=velTheta;camPhi=Math.max(.08,Math.min(Math.PI*.87,camPhi+velPhi));
     velTheta*=DAMP;velPhi*=DAMP;camChanged=true;
   }
-  if(Math.abs(velZoom)>.008){camR=Math.max(4,Math.min(70,camR+velZoom));velZoom*=DAMP;camChanged=true;}
+  if(Math.abs(velZoom)>.008){camR=Math.max(4,Math.min(500,camR+velZoom));velZoom*=DAMP;camChanged=true;}
   if(camChanged)syncCam();
   // FPS counter
   fc++;const now=Date.now();
@@ -661,7 +827,7 @@ function loop(){
 const K=(x,y,z)=>`${x},${y},${z}`;
 function place(pos){
   const x=Math.round(pos.x),y=Math.round(pos.y),z=Math.round(pos.z);
-  if(y<0||y>40||Math.abs(x)>20||Math.abs(z)>20)return false;
+  if(y<0||y>200||Math.abs(x)>500||Math.abs(z)>500)return false;
   const k=K(x,y,z);if(voxMap[k])return false;
   const mat=makeMat(selColor,selMat);
   const m=new THREE.Mesh(getGeo(selShape),mat);// shared geo — no clone
@@ -717,7 +883,7 @@ function castRay(nx,ny){
 }
 
 // ════════════════════════════════════
-//  MOUSE
+//  MOUSE + TOUCH
 // ════════════════════════════════════
 function setupMouse(){
   const el=document.getElementById('tc');
@@ -733,7 +899,75 @@ function setupMouse(){
   });
   el.addEventListener('mouseup',()=>mDrag=false);
   el.addEventListener('contextmenu',e=>{e.preventDefault();if(hoverPos)erase(hoverPos);});
+  // Desktop: scroll wheel zooms
   el.addEventListener('wheel',e=>{velZoom+=e.deltaY*.016;e.preventDefault();},{passive:false});
+
+  // ── TOUCH: 1-finger = orbit/aim, 2-finger pinch = zoom only, tap = place ──
+  let t1Start=null,t1Prev=null;
+  let pinchStartDist=0,pinchActive=false;
+
+  el.addEventListener('touchstart',e=>{
+    e.preventDefault();
+    if(e.touches.length===1){
+      const t=e.touches[0];
+      t1Start={x:t.clientX,y:t.clientY,time:Date.now()};
+      t1Prev={x:t.clientX,y:t.clientY};
+      mNX=t.clientX/innerWidth;mNY=t.clientY/innerHeight;
+      castRay(mNX,mNY);
+      pinchActive=false;
+    } else if(e.touches.length===2){
+      // Two fingers: start pinch zoom
+      const dx=e.touches[0].clientX-e.touches[1].clientX;
+      const dy=e.touches[0].clientY-e.touches[1].clientY;
+      pinchStartDist=Math.hypot(dx,dy);
+      pinchActive=true;
+      t1Start=null; // cancel orbit
+    }
+  },{passive:false});
+
+  el.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    if(e.touches.length===1&&!pinchActive&&t1Prev){
+      const t=e.touches[0];
+      // 1-finger drag = orbit camera
+      velTheta-=(t.clientX-t1Prev.x)*.006;
+      velPhi+=(t.clientY-t1Prev.y)*.006;
+      t1Prev={x:t.clientX,y:t.clientY};
+      mNX=t.clientX/innerWidth;mNY=t.clientY/innerHeight;
+      castRay(mNX,mNY);
+    } else if(e.touches.length===2&&pinchActive){
+      // 2-finger pinch = zoom only (no orbit)
+      const dx=e.touches[0].clientX-e.touches[1].clientX;
+      const dy=e.touches[0].clientY-e.touches[1].clientY;
+      const dist=Math.hypot(dx,dy);
+      const delta=pinchStartDist-dist; // positive = pinch in = zoom in
+      velZoom+=delta*.08;
+      pinchStartDist=dist;
+    }
+  },{passive:false});
+
+  el.addEventListener('touchend',e=>{
+    e.preventDefault();
+    if(e.touches.length===0){
+      // Was it a short single-finger tap? → place block
+      if(t1Start&&!pinchActive){
+        const t=e.changedTouches[0];
+        const dx=Math.abs(t.clientX-t1Start.x);
+        const dy=Math.abs(t.clientY-t1Start.y);
+        const dt=Date.now()-t1Start.time;
+        if(dx<12&&dy<12&&dt<280&&hoverPos){
+          place(hoverPos);
+        }
+      }
+      pinchActive=false;
+      t1Start=null;t1Prev=null;
+    } else if(e.touches.length===1){
+      // Dropped to 1 finger after pinch
+      pinchActive=false;
+      const t=e.touches[0];
+      t1Prev={x:t.clientX,y:t.clientY};
+    }
+  },{passive:false});
 }
 
 // ════════════════════════════════════
@@ -992,90 +1226,267 @@ const SpeechRec=window.SpeechRecognition||window.webkitSpeechRecognition;
 let recognition=null,micActive=false;
 
 const BLUEPRINTS={
+  // ── HOUSE: red brick walls, white trim, grey roof, wood door, glass windows
   house:()=>{const b=[];
-    for(let x=-2;x<=2;x++)for(let z=-2;z<=2;z++)b.push({x,y:0,z,s:'cube',m:'solid',c:PAL[2]});
-    for(let y=1;y<=3;y++){for(let x=-2;x<=2;x++){b.push({x,y,z:-2,s:'cube',m:'solid',c:PAL[7]});b.push({x,y,z:2,s:'cube',m:'solid',c:PAL[7]});}
-    for(let z=-1;z<=1;z++){b.push({x:-2,y,z,s:'cube',m:'solid',c:PAL[7]});b.push({x:2,y,z,s:'cube',m:'solid',c:PAL[7]});}}
-    b.push({x:-1,y:2,z:-2,s:'cube',m:'glass',c:PAL[5]});b.push({x:1,y:2,z:-2,s:'cube',m:'glass',c:PAL[5]});
-    for(let x=-2;x<=2;x++)for(let z=-2;z<=2;z++)b.push({x,y:4,z,s:'slab',m:'solid',c:PAL[3]});
-    b.push({x:0,y:5,z:0,s:'pyramid',m:'solid',c:PAL[3]});
+    const BRICK='#b5451b',ROOF='#4a4a55',TRIM='#f5f0e8',GLASS='#a8d8f0',DOOR='#7b4f2e',CHIMNEY='#8a6a5a',GRASS='#4caf50';
+    // Foundation / floor
+    for(let x=-5;x<=5;x++)for(let z=-4;z<=4;z++)b.push({x,y:0,z,s:'slab',m:'solid',c:'#c8b89a'});
+    // Walls - 4 sides, 4 levels high
+    for(let y=1;y<=4;y++){
+      for(let x=-5;x<=5;x++){b.push({x,y,z:-4,s:'cube',m:'solid',c:BRICK});b.push({x,y,z:4,s:'cube',m:'solid',c:BRICK});}
+      for(let z=-3;z<=3;z++){b.push({x:-5,y,z,s:'cube',m:'solid',c:BRICK});b.push({x:5,y,z,s:'cube',m:'solid',c:BRICK});}
+    }
+    // Window frames + glass (front face)
+    for(let wx of[-3,0,3]){
+      b.push({x:wx,y:2,z:-4,s:'cube',m:'glass',c:GLASS});
+      b.push({x:wx,y:3,z:-4,s:'cube',m:'glass',c:GLASS});
+      b.push({x:wx-1,y:2,z:-4,s:'cube',m:'solid',c:TRIM});
+      b.push({x:wx+1,y:2,z:-4,s:'cube',m:'solid',c:TRIM});
+    }
+    // Door
+    b.push({x:0,y:1,z:-4,s:'cube',m:'solid',c:DOOR});
+    b.push({x:0,y:2,z:-4,s:'cube',m:'solid',c:DOOR});
+    // Roof base (wide overhang)
+    for(let x=-6;x<=6;x++)for(let z=-5;z<=5;z++)b.push({x,y:5,z,s:'slab',m:'solid',c:ROOF});
+    // Roof slope layer 1
+    for(let x=-5;x<=5;x++)for(let z=-4;z<=4;z++)b.push({x,y:6,z,s:'slab',m:'solid',c:ROOF});
+    // Roof slope layer 2 (ridge)
+    for(let x=-4;x<=4;x++)for(let z=-2;z<=2;z++)b.push({x,y:7,z,s:'slab',m:'solid',c:'#3a3a44'});
+    // Ridge
+    for(let x=-4;x<=4;x++)b.push({x,y:8,z:0,s:'slab',m:'solid',c:'#2f2f38'});
+    // Chimney
+    for(let y=5;y<=10;y++){b.push({x:3,y,z:2,s:'cube',m:'solid',c:CHIMNEY});b.push({x:4,y,z:2,s:'cube',m:'solid',c:CHIMNEY});}
+    // Chimney cap
+    b.push({x:3,y:11,z:2,s:'slab',m:'solid',c:'#333'});b.push({x:4,y:11,z:2,s:'slab',m:'solid',c:'#333'});
     return b;},
+
+  // ── TOWER: stone base, brick upper floors, glass top, antenna
   tower:()=>{const b=[];
-    for(let y=0;y<=10;y++){const r=y<9?1:0;for(let x=-r;x<=r;x++)for(let z=-r;z<=r;z++)
-      b.push({x,y,z,s:y===10?'pyramid':'cube',m:y%3===0?'metal':y%3===1?'solid':'glass',c:PAL[y%PAL.length]});}
-    b.push({x:0,y:11,z:0,s:'spike',m:'glow',c:PAL[4]});return b;},
+    const STONE='#8a8a8a',BRICKC='#c0622a',CONC='#aaaaaa',GLASS='#7ec8e3',METAL='#b0b8c0';
+    // Thick stone base (5x5, 4 tall)
+    for(let y=0;y<=3;y++)for(let x=-4;x<=4;x++)for(let z=-4;z<=4;z++)
+      if(Math.abs(x)>=3||Math.abs(z)>=3||y===0)b.push({x,y,z,s:'cube',m:'solid',c:STONE});
+    // Main shaft (3x3, 12 tall)
+    for(let y=4;y<=15;y++)for(let x=-2;x<=2;x++)for(let z=-2;z<=2;z++){
+      if(Math.abs(x)===2||Math.abs(z)===2){
+        const c=y<10?BRICKC:CONC;
+        b.push({x,y,z,s:'cube',m:y<10?'solid':'solid',c});
+      }
+    }
+    // Floors with windows every 4 levels
+    for(let fl=0;fl<3;fl++){
+      const fy=4+fl*4;
+      for(let s=-1;s<=1;s++){
+        b.push({x:s,y:fy+2,z:-2,s:'cube',m:'glass',c:GLASS});
+        b.push({x:s,y:fy+2,z:2,s:'cube',m:'glass',c:GLASS});
+        b.push({x:-2,y:fy+2,z:s,s:'cube',m:'glass',c:GLASS});
+        b.push({x:2,y:fy+2,z:s,s:'cube',m:'glass',c:GLASS});
+      }
+    }
+    // Glass top floor (3 levels, narrows)
+    for(let y=16;y<=19;y++)for(let x=-2;x<=2;x++)for(let z=-2;z<=2;z++)
+      b.push({x,y,z,s:'cube',m:'glass',c:'#c0eaff'});
+    // Parapet / crown
+    for(let x=-3;x<=3;x+=2)for(let z=-3;z<=3;z+=2)b.push({x,y:20,z,s:'cube',m:'metal',c:METAL});
+    // Antenna mast
+    for(let y=21;y<=26;y++)b.push({x:0,y,z:0,s:'spike',m:'metal',c:METAL});
+    b.push({x:0,y:27,z:0,s:'sphere',m:'glow',c:'#ff3333'});
+    return b;},
+
+  // ── IRONMAN: red+gold armor with proper proportions
   ironman:()=>{const b=[];
-    // Torso
-    for(let y=2;y<=5;y++)for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)b.push({x,y,z,s:'cube',m:'metal',c:PAL[0]});
-    // Chest arc reactor
-    b.push({x:0,y:4,z:-1,s:'sphere',m:'glow',c:PAL[5]});
-    // Head
-    for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)b.push({x,y:6,z,s:'cube',m:'metal',c:PAL[0]});
-    b.push({x:-1,y:6,z:-1,s:'cube',m:'glow',c:PAL[5]});b.push({x:1,y:6,z:-1,s:'cube',m:'glow',c:PAL[5]});
-    // Shoulders
-    for(let x of[-2,2])for(let y=4;y<=5;y++)b.push({x,y,z:0,s:'cube',m:'metal',c:PAL[0]});
-    // Arms
-    for(let y=0;y<=3;y++){b.push({x:-2,y,z:0,s:'cube',m:'metal',c:PAL[0]});b.push({x:2,y,z:0,s:'cube',m:'metal',c:PAL[0]});}
-    // Hands glow
-    b.push({x:-2,y:0,z:0,s:'sphere',m:'glow',c:PAL[5]});b.push({x:2,y:0,z:0,s:'sphere',m:'glow',c:PAL[5]});
+    const RED='#cc1111',GOLD='#d4a017',DARK='#880808',ARC='#00cfff',EYE='#ffffff';
     // Legs
-    for(let y=-3;y<=1;y++){b.push({x:-1,y,z:0,s:'cube',m:'metal',c:PAL[0]});b.push({x:1,y,z:0,s:'cube',m:'metal',c:PAL[0]});}
+    for(let s of[-1,1])for(let y=0;y<=4;y++)
+      b.push({x:s,y,z:0,s:'cube',m:'metal',c:y<2?GOLD:RED});
+    // Knee joints
+    for(let s of[-1,1])b.push({x:s,y:3,z:0,s:'sphere',m:'metal',c:GOLD});
     // Boots
-    for(let x of[-1,1])for(let z=-1;z<=0;z++)b.push({x,y:-4,z,s:'cube',m:'metal',c:PAL[0]});
-    return b.map(v=>({...v,y:v.y+4}));},
-  rocket:()=>{const b=[];
-    // Body
-    for(let y=0;y<=8;y++)for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)
-      b.push({x,y,z,s:y>6?'cube':'cube',m:y>6?'metal':'metal',c:y>6?PAL[1]:PAL[10]});
-    // Nose cone
-    for(let y=9;y<=11;y++){const r=11-y;for(let x=-r;x<=r;x++)for(let z=-r;z<=r;z++)
-      b.push({x,y,z,s:'cube',m:'metal',c:PAL[1]});}
-    b.push({x:0,y:12,z:0,s:'spike',m:'metal',c:PAL[10]});
-    // Fins
-    [[-2,0],[2,0],[0,-2],[0,2]].forEach(([fx,fz])=>{
-      for(let y=0;y<=2;y++)b.push({x:fx,y,z:fz,s:'slab',m:'metal',c:PAL[0]});});
-    // Engine glow
-    b.push({x:0,y:-1,z:0,s:'sphere',m:'glow',c:PAL[2]});
-    b.push({x:-1,y:-1,z:0,s:'sphere',m:'glow',c:PAL[3]});b.push({x:1,y:-1,z:0,s:'sphere',m:'glow',c:PAL[3]});
+    for(let s of[-1,1])for(let z=-1;z<=0;z++)b.push({x:s,y:0,z,s:'cube',m:'metal',c:GOLD});
+    // Pelvis / waist
+    for(let x=-1;x<=1;x++)b.push({x,y:5,z:0,s:'slab',m:'metal',c:DARK});
+    // Torso (wider, 3 wide)
+    for(let y=6;y<=9;y++)for(let x=-2;x<=2;x++)for(let z=-1;z<=1;z++)
+      b.push({x,y,z,s:'cube',m:'metal',c:y%2===0?RED:DARK});
+    // Chest arc reactor
+    b.push({x:0,y:8,z:-1,s:'sphere',m:'glow',c:ARC});
+    b.push({x:0,y:8,z:-2,s:'sphere',m:'glow',c:'#88ffff'});
+    // Shoulders (pauldrons)
+    for(let s of[-3,3])for(let y=8;y<=9;y++)for(let z=-1;z<=1;z++)
+      b.push({x:s,y,z,s:'cube',m:'metal',c:RED});
+    // Upper arms
+    for(let s of[-3,3])for(let y=5;y<=7;y++)
+      b.push({x:s,y,z:0,s:'cube',m:'metal',c:GOLD});
+    // Forearms
+    for(let s of[-3,3])for(let y=2;y<=4;y++)
+      b.push({x:s,y,z:0,s:'cube',m:'metal',c:RED});
+    // Repulsor gauntlets (glow)
+    for(let s of[-3,3])b.push({x:s,y:1,z:0,s:'sphere',m:'glow',c:ARC});
+    // Neck
+    b.push({x:0,y:10,z:0,s:'cube',m:'metal',c:DARK});
+    // Head (3x3)
+    for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)b.push({x,y:11,z,s:'cube',m:'metal',c:RED});
+    for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)b.push({x,y:12,z,s:'cube',m:'metal',c:RED});
+    // Eye slits
+    for(let s of[-1,1])b.push({x:s,y:12,z:-1,s:'cube',m:'glow',c:EYE});
+    // Faceplate
+    b.push({x:0,y:11,z:-1,s:'cube',m:'metal',c:GOLD});
     return b.map(v=>({...v,y:v.y+1}));},
+
+  // ── ROCKET: white body, red fins, blue windows, fiery engine
+  rocket:()=>{const b=[];
+    const WHITE='#f0f0f0',RED='#e02020',BLUE='#3399ff',FIRE='#ff6600',FIRE2='#ffcc00';
+    // Main body cylinder (3x3 cross, 14 tall)
+    for(let y=0;y<=13;y++)for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)
+      b.push({x,y,z,s:'cube',m:'metal',c:WHITE});
+    // Red stripe bands
+    for(let y of[3,7,11])for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)
+      b.push({x,y,z,s:'slab',m:'solid',c:RED});
+    // Nose cone narrowing
+    for(let y=14;y<=16;y++){const r=16-y;for(let x=-r;x<=r;x++)for(let z=-r;z<=r;z++)
+      b.push({x,y,z,s:'cube',m:'metal',c:WHITE});}
+    b.push({x:0,y:17,z:0,s:'spike',m:'metal',c:RED});
+    // Cockpit window
+    b.push({x:0,y:11,z:-1,s:'cube',m:'glass',c:BLUE});
+    b.push({x:1,y:11,z:-1,s:'cube',m:'glass',c:BLUE});
+    b.push({x:-1,y:11,z:-1,s:'cube',m:'glass',c:BLUE});
+    // Large swept fins (4 fins)
+    [[-2,0],[2,0],[0,-2],[0,2]].forEach(([fx,fz])=>{
+      for(let y=0;y<=3;y++){
+        b.push({x:fx,y,z:fz,s:'slab',m:'solid',c:RED});
+        if(y<2){b.push({x:fx+(fx!==0?Math.sign(fx):0),y,z:fz+(fz!==0?Math.sign(fz):0),s:'slab',m:'solid',c:RED});}
+      }
+    });
+    // Engines (5 nozzles in cross+center)
+    [[0,0],[1,0],[-1,0],[0,1],[0,-1]].forEach(([ex,ez])=>{
+      b.push({x:ex,y:-1,z:ez,s:'cylinder',m:'glow',c:FIRE2});
+      b.push({x:ex,y:-2,z:ez,s:'sphere',m:'glow',c:FIRE});
+    });
+    return b.map(v=>({...v,y:v.y+3}));},
+
+  // ── CAR: modern sports car, black chassis, colored body, rubber tires
   car:()=>{const b=[];
-    // Chassis
-    for(let x=-3;x<=3;x++)for(let z=-1;z<=1;z++)b.push({x,y:0,z,s:'slab',m:'metal',c:PAL[0]});
-    // Body
-    for(let x=-2;x<=2;x++)for(let z=-1;z<=1;z++)b.push({x,y:1,z,s:'cube',m:'solid',c:PAL[5]});
+    const BODY='#1a3fcc',DARK='#111111',GLASS='#c8e8ff',CHROME='#e0e0e0',TIRE='#1a1a1a',LIGHT='#ffffaa';
+    // Underbody / chassis
+    for(let x=-5;x<=5;x++)for(let z=-2;z<=2;z++)b.push({x,y:0,z,s:'slab',m:'metal',c:DARK});
+    // Body lower
+    for(let x=-4;x<=4;x++)for(let z=-2;z<=2;z++)b.push({x,y:1,z,s:'cube',m:'solid',c:BODY});
+    // Body side skirts
+    for(let x=-5;x<=5;x++)for(let s of[-2,2])b.push({x,y:1,z:s,s:'slab',m:'solid',c:DARK});
+    // Cabin (narrower)
+    for(let x=-2;x<=2;x++)for(let z=-2;z<=2;z++)b.push({x,y:2,z,s:'cube',m:'solid',c:BODY});
+    // Windshields (full glass cabin)
+    for(let z=-2;z<=2;z++){b.push({x:-2,y:2,z,s:'cube',m:'glass',c:GLASS});b.push({x:2,y:2,z,s:'cube',m:'glass',c:GLASS});}
+    for(let x=-1;x<=1;x++){b.push({x,y:2,z:-2,s:'cube',m:'glass',c:GLASS});b.push({x,y:2,z:2,s:'cube',m:'glass',c:GLASS});}
     // Roof
-    for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)b.push({x,y:2,z,s:'cube',m:'solid',c:PAL[5]});
-    // Windows
-    b.push({x:-1,y:2,z:-1,s:'cube',m:'glass',c:PAL[6]});b.push({x:0,y:2,z:-1,s:'cube',m:'glass',c:PAL[6]});b.push({x:1,y:2,z:-1,s:'cube',m:'glass',c:PAL[6]});
-    // Wheels
-    [[-2,-1],[-2,1],[2,-1],[2,1]].forEach(([wx,wz])=>{b.push({x:wx,y:0,z:wz,s:'cylinder',m:'solid',c:PAL[11]});});
+    for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)b.push({x,y:3,z,s:'slab',m:'solid',c:BODY});
+    // Wheels (4 large cylinders with chrome rim)
+    [[-4,-2],[-4,2],[4,-2],[4,2]].forEach(([wx,wz])=>{
+      b.push({x:wx,y:0,z:wz,s:'cylinder',m:'solid',c:TIRE});
+      b.push({x:wx,y:1,z:wz,s:'cylinder',m:'solid',c:TIRE});
+      b.push({x:wx,y:0,z:wz,s:'sphere',m:'metal',c:CHROME});
+    });
     // Headlights
-    b.push({x:-2,y:1,z:-1,s:'cube',m:'glow',c:PAL[2]});b.push({x:2,y:1,z:-1,s:'cube',m:'glow',c:PAL[2]});
+    b.push({x:-3,y:1,z:-2,s:'cube',m:'glow',c:LIGHT});b.push({x:3,y:1,z:-2,s:'cube',m:'glow',c:LIGHT});
+    // Taillights
+    b.push({x:-3,y:1,z:2,s:'cube',m:'glow',c:'#ff2222'});b.push({x:3,y:1,z:2,s:'cube',m:'glow',c:'#ff2222'});
+    // Hood scoop
+    b.push({x:0,y:2,z:-3,s:'slab',m:'solid',c:DARK});
+    // Spoiler
+    for(let x=-2;x<=2;x++)b.push({x,y:3,z:3,s:'slab',m:'solid',c:DARK});
     return b;},
+
+  // ── CASTLE: grey stone, dark towers, red flags, wooden gate
   castle:()=>{const b=[];
-    for(let y=0;y<=5;y++)for(let x=-4;x<=4;x++)for(let z=-4;z<=4;z++)
-      if(Math.abs(x)===4||Math.abs(z)===4)b.push({x,y,z,s:'cube',m:'solid',c:PAL[11]});
-    for(let cx of[-3,3])for(let cz of[-3,3]){
-      for(let y=0;y<=8;y++)b.push({x:cx,y,z:cz,s:'cylinder',m:'metal',c:PAL[10]});
-      b.push({x:cx,y:9,z:cz,s:'pyramid',m:'solid',c:PAL[3]});}
+    const STONE='#9a9a9a',DARK='#5a5a5a',TOWER='#7a7a7a',GATE='#6b4226',FLAG='#cc2222',BATTLEMENT='#888888';
+    // Outer walls (8x8 footprint, 6 tall)
+    for(let y=0;y<=5;y++)for(let x=-8;x<=8;x++)for(let z=-8;z<=8;z++)
+      if(Math.abs(x)===8||Math.abs(z)===8)b.push({x,y,z,s:'cube',m:'solid',c:STONE});
+    // Corner towers (4 towers, 3x3, 10 tall)
+    for(let cx of[-7,7])for(let cz of[-7,7]){
+      for(let y=0;y<=9;y++)for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)
+        b.push({x:cx+x,y,z:cz+z,s:'cube',m:'solid',c:TOWER});
+      // Tower battlements
+      for(let x=-1;x<=1;x+=2)b.push({x:cx+x,y:10,z:cz,s:'cube',m:'solid',c:BATTLEMENT});
+      for(let z=-1;z<=1;z+=2)b.push({x:cx,y:10,z:cz+z,s:'cube',m:'solid',c:BATTLEMENT});
+      // Tower conical roof
+      for(let y=10;y<=12;y++){const r=12-y;for(let x=-r;x<=r;x++)for(let z=-r;z<=r;z++)
+        b.push({x:cx+x,y,z:cz+z,s:'cube',m:'solid',c:DARK});}
+      // Flag
+      b.push({x:cx,y:13,z:cz,s:'spike',m:'metal',c:'#888'});
+      b.push({x:cx+1,y:13,z:cz,s:'cube',m:'solid',c:FLAG});
+    }
+    // Gate arch (front wall gap)
+    for(let y=1;y<=3;y++)for(let z of[-1,0,1])b.push({x:0,y,z,s:'cube',m:'solid',c:GATE});
+    // Drawbridge
+    for(let z=-10;z<=-8;z++)for(let x=-1;x<=1;x++)b.push({x,y:0,z,s:'slab',m:'solid',c:GATE});
+    // Inner keep (central building)
+    for(let y=0;y<=7;y++)for(let x=-3;x<=3;x++)for(let z=-3;z<=3;z++)
+      if(Math.abs(x)===3||Math.abs(z)===3)b.push({x,y,z,s:'cube',m:'solid',c:'#aaa'});
+    // Keep roof
+    for(let y=8;y<=10;y++){const r=10-y;for(let x=-r;x<=r;x++)for(let z=-r;z<=r;z++)
+      b.push({x,y,z,s:'cube',m:'solid',c:DARK});}
     return b;},
+
+  // ── PLANE: silver fuselage, blue livery, swept wings, jet engines
   plane:()=>{const b=[];
-    // Fuselage
-    for(let x=-5;x<=5;x++)for(let z=-1;z<=1;z++)b.push({x,y:0,z,s:'cube',m:'metal',c:PAL[10]});
-    // Nose
-    b.push({x:6,y:0,z:0,s:'pyramid',m:'metal',c:PAL[10]});
-    b.push({x:7,y:0,z:0,s:'spike',m:'metal',c:PAL[10]});
-    // Wings
-    for(let wz=-1;wz<=1;wz+=2)for(let wx=-3;wx<=3;wx++)b.push({x:wx,y:0,z:wz*3,s:'slab',m:'metal',c:PAL[6]});
-    // Tail
-    for(let y=0;y<=2;y++)b.push({x:-5,y,z:0,s:'cube',m:'metal',c:PAL[10]});
-    for(let tz=-1;tz<=1;tz+=2)b.push({x:-4,y:0,z:tz,s:'slab',m:'metal',c:PAL[6]});
-    // Engines
-    for(let ez of[-2,2])b.push({x:0,y:-1,z:ez,s:'cylinder',m:'glow',c:PAL[3]});
-    return b.map(v=>({...v,y:v.y+2}));},
+    const SILVER='#d0d8e0',BLUE='#1a4fff',WHITE='#f8f8f8',ENG='#888',GLASS='#a0d4f0',RED='#e03030';
+    // Fuselage (oval cross-section, 14 long)
+    for(let x=-7;x<=7;x++){
+      b.push({x,y:0,z:0,s:'cube',m:'metal',c:SILVER});
+      b.push({x,y:1,z:0,s:'cube',m:'metal',c:SILVER});
+      b.push({x,y:0,z:1,s:'cube',m:'metal',c:SILVER});
+      b.push({x,y:0,z:-1,s:'cube',m:'metal',c:SILVER});
+    }
+    // Nose cone (taper 3 levels)
+    for(let y=0;y<=1;y++)b.push({x:8,y,z:0,s:'cube',m:'metal',c:SILVER});
+    b.push({x:9,y:0,z:0,s:'pyramid',m:'metal',c:WHITE});
+    b.push({x:10,y:0,z:0,s:'spike',m:'metal',c:WHITE});
+    // Tail taper
+    for(let y=0;y<=1;y++)b.push({x:-8,y,z:0,s:'cube',m:'metal',c:SILVER});
+    b.push({x:-9,y:0,z:0,s:'cube',m:'metal',c:SILVER});
+    // Blue livery stripe along body
+    for(let x=-7;x<=7;x++)b.push({x,y:1,z:0,s:'slab',m:'solid',c:BLUE});
+    // Cockpit windows
+    for(let wx=7;wx<=9;wx++)b.push({x:wx,y:1,z:0,s:'cube',m:'glass',c:GLASS});
+    // Passenger windows (small portals)
+    for(let wx=-5;wx<=5;wx+=2){
+      b.push({x:wx,y:1,z:-1,s:'cube',m:'glass',c:GLASS});
+      b.push({x:wx,y:1,z:1,s:'cube',m:'glass',c:GLASS});
+    }
+    // SWEPT WINGS (long and swept back)
+    for(let wz=2;wz<=9;wz++){const sweep=Math.floor(wz/2);
+      for(let wx=-3+sweep;wx<=3-sweep+1;wx++){
+        b.push({x:wx,y:0,z:wz,s:'slab',m:'metal',c:SILVER});
+        b.push({x:wx,y:0,z:-wz,s:'slab',m:'metal',c:SILVER});
+      }
+    }
+    // Wing tips
+    b.push({x:0,y:0,z:10,s:'slab',m:'metal',c:RED});
+    b.push({x:0,y:0,z:-10,s:'slab',m:'metal',c:RED});
+    // Under-wing engines (2 per side, hanging below)
+    for(let wz of[4,7])for(let s of[-1,1]){
+      b.push({x:0,y:-1,z:wz*s,s:'cylinder',m:'solid',c:ENG});
+      b.push({x:0,y:-2,z:wz*s,s:'sphere',m:'glow',c:'#ff8800'});
+    }
+    // Vertical tail fin
+    for(let y=1;y<=4;y++)b.push({x:-7,y,z:0,s:'cube',m:'metal',c:SILVER});
+    // Horizontal stabilizers
+    for(let wz=1;wz<=3;wz++){b.push({x:-7,y:0,z:wz,s:'slab',m:'metal',c:SILVER});b.push({x:-7,y:0,z:-wz,s:'slab',m:'metal',c:SILVER});}
+    return b.map(v=>({...v,y:v.y+4}));},
+
+  // ── PYRAMID: sandy stone, darkening tiers, golden capstone
   pyramid:()=>{const b=[];
-    for(let y=0;y<=5;y++){const r=5-y;for(let x=-r;x<=r;x++)for(let z=-r;z<=r;z++)
-      b.push({x,y,z,s:'cube',m:'solid',c:PAL[Math.floor(y*2)]});}
+    const SAND='#e8c87a',MID='#c9a44a',DARK='#a07830',CAP='#ffd700';
+    for(let y=0;y<=8;y++){
+      const r=8-y;
+      const c=y<3?SAND:y<6?MID:DARK;
+      for(let x=-r;x<=r;x++)for(let z=-r;z<=r;z++)
+        b.push({x,y,z,s:'cube',m:'solid',c});
+    }
+    // Golden capstone
+    b.push({x:0,y:9,z:0,s:'pyramid',m:'metal',c:CAP});
+    b.push({x:0,y:10,z:0,s:'spike',m:'glow',c:CAP});
     return b;},
 };
 
