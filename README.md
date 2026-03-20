@@ -24,20 +24,6 @@ Built with **Three.js**, featuring dark/light mode, voice commands, hand gesture
 
 No installation or build step required. It's a single HTML file.
 
-### Option 1 — Open locally
-```bash
-git clone https://github.com/YOUR_USERNAME/jarvis-build.git
-cd jarvis-build
-# Open index.html in your browser
-```
-
-### Option 2 — Live via GitHub Pages
-1. Go to your repo **Settings → Pages**
-2. Set source to `main` branch, `/ (root)`
-3. Your site will be live at `https://YOUR_USERNAME.github.io/jarvis-build/`
-
----
-
 ## 🎮 Controls
 
 | Action | How |
